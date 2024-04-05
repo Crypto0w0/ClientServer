@@ -13,7 +13,6 @@ class Program
             Random rnd = new Random();
             string[] phrases = {"Very nice<EOF>", "So funny<EOF>", "Bye<EOF>", "No way<EOF>"};
             
-            byte[] bytes = new Byte[1024];
             IPHostEntry ipHostEntry = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostEntry.AddressList[0];
             
@@ -32,9 +31,11 @@ class Program
             while (true)
             {
                 Console.WriteLine("Enter the message");
-                string data = Console.ReadLine();
+                string req = Console.ReadLine();
+                string data = null;
                 while (true)
                 {
+                    byte[] bytes = Encoding.ASCII.GetBytes(req);
                     int bytesRec = handler.Receive(bytes);
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     if (data.IndexOf("<EOF>") > -1)
