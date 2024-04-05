@@ -10,6 +10,7 @@ class Program
     {
         try
         {
+            byte[] bytes;
             Random rnd = new Random();
             string[] phrases = {"Very nice<EOF>", "So funny<EOF>", "Bye<EOF>", "No way<EOF>"};
             
@@ -35,7 +36,7 @@ class Program
                 string data = null;
                 while (true)
                 {
-                    byte[] bytes = Encoding.ASCII.GetBytes(req);
+                    bytes = Encoding.ASCII.GetBytes(req);
                     int bytesRec = handler.Receive(bytes);
                     data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                     if (data.IndexOf("<EOF>") > -1)
